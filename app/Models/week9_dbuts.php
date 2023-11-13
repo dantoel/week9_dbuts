@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class week9_dbuts extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'Genre',

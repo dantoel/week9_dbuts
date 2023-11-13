@@ -43,7 +43,7 @@ class APIController extends Controller
         $save->Age = $request->Age;
         $save->Gpa = $request->Gpa;
         $save->Year = $request->Year;
-        $save->Count = $request->Reports;
+        $save->Count = $request->Count;
         $save->Gender = $request->Gender;
         $save->Nationality = $request->Nationality;
         $save->save();
@@ -157,14 +157,14 @@ class APIController extends Controller
      {
          // Validasi request
          $this->validate($request, [
-             'Nationality' => 'required|in:Indonesia,Sudan,France,Mexico,South Africa,Yemen', // Sesuaikan dengan opsi nationality yang ada
+             'Nationality' => 'required|in:Indonesia,Soudan,France,Mexico,South Africa,Yemen', // Sesuaikan dengan opsi nationality yang ada
          ]);
      
          // Menghitung jumlah responden berdasarkan nationality (negara asal).
          $Nationality = $request->input('Nationality');
          $rowCount = week9_dbuts::where('Nationality', $Nationality)->count();
      
-         return response()->json(['respondent_count' => $rowCount, 'nationality' => $Nationality]);
+         return response()->json([$rowCount]);
      }
      
 
@@ -186,7 +186,7 @@ class APIController extends Controller
          $Genre = $request->input('Genre');
          $rowCount = week9_dbuts::where('Genre', $Genre)->count();
      
-         return response()->json(['respondent_count' => $rowCount, 'Factor' => $Genre]);
+         return response()->json([$rowCount]);
      }
 
 public function calculateAverageAge() {
