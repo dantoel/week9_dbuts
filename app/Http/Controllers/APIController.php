@@ -4,17 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\week9_dbuts;
+use App\Models\account_login;
+use App\Models\lapor_kekerasan;
+use App\Models\laporan_kekerasan;
+use App\Models\login_mhs;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\Passport;
 
 class APIController extends Controller
 {
+    
   /**
      * Display a listing of the resource.
      *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $data = week9_dbuts::all();
+        return $data;
+        
+        //
+    }
+
+    public function index_kekerasan()
+    {
+        $data = laporan_kekerasan::all();
         return $data;
         //
     }
@@ -49,6 +65,80 @@ class APIController extends Controller
         $save->save();
 
         return "Berhasil menyimpan data";
+    }
+
+    public function login_mhs(Request $request){
+        $nim = $request->nim;
+        $nama_mhs = $request-> nama_mhs;
+        $status_akhir = $request-> status_akhir;
+
+    
+        // Assuming account_login is the model for your accounts table
+        $user = login_mhs::where('nim', $nim)->first();
+    
+        if (!$user) {
+            return response()->json(404);
+        }
+    
+        // Assuming you're storing hashed passwords in the database
+        if ($nama_mhs === $user->nama_mhs && $user->status_akhir == 'Lulus') {
+            // Password is correct, you can proceed with the login
+            // You might want to generate a token or use a session to keep the user logged in
+            return response()->json(200);
+        } elseif ($user->status_akhir != 'Lulus') {
+            // Status Akhir is not "Lulus"
+            return response()->json(401);
+        } else {
+            // Password is incorrect
+            return response()->json(401);
+        }
+    }
+
+    public function login(Request $request){
+        $nim = $request->nim;
+        $password = $request->password;
+    
+        // Assuming account_login is the model for your accounts table
+        $user = account_login::where('nim', $nim)->first();
+    
+        if (!$user) {
+            return response()->json(404);
+        }
+    
+        // Assuming you're storing hashed passwords in the database
+        if ($password === $user->password) {
+            // Password is correct, you can proceed with the login
+            // You might want to generate a token or use a session to keep the user logged in
+            return response()->json(200);
+        } else {
+            // Password is incorrect
+            return response()->json(401);
+        }
+    }
+
+
+    public function register(Request $request){
+        $save = new account_login;
+        $save->nim = $request->nim; // Assuming nim is the field in account_login table
+        $save->nama = $request->nama;
+        $save->nomor_telepon = $request->nomor_telepon;
+        $save->email = $request->email;
+        $save->password = $request->password;
+        $save->save();
+        return "Berhasil menyimpan data";
+    }
+
+    public function lapor(Request $request){
+        $save = new laporan_kekerasan;
+        $save->nim = $request->nim;
+        $save->nama = $request->nama;
+        $save->telepon = $request->telepon;
+        $save->jenis = $request->jenis;
+        $save->report = $request->report;
+        $save->filepath = $request->filepath;
+        $save->save();
+        return "Berhasil menyimpan data";
+
     }
 
     /**

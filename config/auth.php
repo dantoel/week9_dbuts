@@ -63,6 +63,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'table' => 'login_mhs',
+            'nim' => 'nim',
+            'nama_mhs' => 'nama_mhs',
+            'status_akhir' => 'status_akhir',
         ],
 
         // 'users' => [

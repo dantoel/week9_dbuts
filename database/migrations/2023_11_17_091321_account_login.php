@@ -13,20 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('datautsmobile', function(Blueprint $table){   
+        Schema::create('account_login', function(Blueprint $table) {
             $table->id();
-            $table->string('Genre');
-            $table->string('Reports');
-            $table->string('Age');
-            $table->string('Gpa');
-            $table->string('Year');
-            $table->string('Count');
-            $table->string('Gender');
-            $table->string('Nationality');
-         });
-}
-
+            $table->string('nim');
+            $table->string('nama');
+            $table->string('nomor_telepon');
+            $table->string('email');
+            $table->string('password');
+            // Add more fields as needed
+        });
+    
+    }
 
     /**
      * Reverse the migrations.

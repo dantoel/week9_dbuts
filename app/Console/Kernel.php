@@ -29,4 +29,11 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    protected $middlewareGroups = [
+        'web' => [
+            // ...
+            \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+        ],
+    ];
 }

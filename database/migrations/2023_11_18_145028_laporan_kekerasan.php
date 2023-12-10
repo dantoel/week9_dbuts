@@ -13,20 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('datautsmobile', function(Blueprint $table){   
+        Schema::create('laporan_kekerasan', function(Blueprint $table){
             $table->id();
-            $table->string('Genre');
-            $table->string('Reports');
-            $table->string('Age');
-            $table->string('Gpa');
-            $table->string('Year');
-            $table->string('Count');
-            $table->string('Gender');
-            $table->string('Nationality');
-         });
-}
-
+            $table->integer('nim');
+            $table->string('nama');
+            $table->string('telepon');
+            $table->string('jenis');
+            $table->string('report');
+            $table->string('filepath');
+        });
+    }
 
     /**
      * Reverse the migrations.
