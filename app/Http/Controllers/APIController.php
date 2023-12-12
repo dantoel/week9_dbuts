@@ -35,6 +35,13 @@ class APIController extends Controller
         //
     }
 
+    public function index_mhs()
+    {
+        $data = login_mhs::all();
+        return $data;
+        //
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -290,7 +297,17 @@ public function calculateAverageAge() {
     return response()->json([$averageGPA]);
 }
 
+public function countMhsByStatus(Request $request)
+{
+    // Validasi request
+    $this->validate($request, [
+        'status_akhir' => 'required|in:Lulus,Keluar/Mengundurkan Diri,Mengulang Karena Tidak Lulus Tugas Akhir,Tidak Aktif Mengulang TA (Mahasiswa Tidak Jelas),MD MABA,MD TDU setelah Cuti/TRM', // Sesuaikan dengan opsi nationality yang ada
+    ]);
 
+    // Menghitung jumlah responden berdasarkan nationality (negara asal).
+    $status_akhir = $request->input('status_akhir');
+    $rowCount = login_mhs::where('status_akhir', $status_akhir)->count();
 
-
+    return response()->json($rowCount);
+}
 }

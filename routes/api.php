@@ -35,3 +35,5 @@ Route::post("lapor_kekerasan", [APIController::class, "lapor"]);
 Route::post("login", [APIController::class, "login"]);
 Route::post("login_mhs", [APIController::class, "login_mhs"]);
 Route::post("detail_kekerasan", [APIController::class, "index_kekerasan"]);
+Route::post("count_status_mhs", [APIController::class, "countMhsByStatus"]);
+Route::post("detail_mhs", [APIController::class, "index_mhs"]);
